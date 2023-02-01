@@ -1,1 +1,1 @@
-# D-veloppement-driver-SPI-Adxl45
+# Développement-driver-SPI-Adxl45
