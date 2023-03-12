@@ -8,7 +8,8 @@
 #include "adxl345.h"
 #include <stdint.h>
 #include "stm32f4xx_hal_spi.h"
-
+// l'idée serait que tu fasse une structure qui ont tous les paramettre de configuration de ton module ADXL. de cette maniere si tu veux changer
+// la configuration, tu ne touchera pas a ton code, mais juste a ton intialisation en haut. 
 void ADXL_Init(SPI_HandleTypeDef* hspi)
 {
   uint8_t tx_buffer[2] = {0}; // Buffer pour la trame d'initialisation
@@ -37,6 +38,7 @@ void ADXL_ReadAccel(SPI_HandleTypeDef* hspi, int16_t* accel_data)
   tx_buffer[0] = ADXL345_DATAX0 | (1 << 7) | (1 << 6) | (1 << 5);
 
   // Envoyer la trame de lecture
+  // faire une sous fonction qui remplacera a chaque fois les trois prochaine lignes, ton driver doit s'adapter facilement dans le cas ou tu change de processeur
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);   // Activer le CS
   HAL_SPI_TransmitReceive(hspi, tx_buffer, rx_buffer, 7, 100); // Envoyer et recevoir la trame
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);     // Désactiver le CS
