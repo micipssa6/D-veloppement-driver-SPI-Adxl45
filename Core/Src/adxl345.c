@@ -8,6 +8,8 @@
 #include "adxl345.h"
 #include <stdint.h>
 #include "stm32f4xx_hal_spi.h"
+// ajouter une structure pour configurer ton ADXL, qui sera une variable d'entrer pour ton ADXL_INIT ( cela inclus aussi ton Hspi).
+
 
 void ADXL_Init(SPI_HandleTypeDef* hspi)
 {
@@ -16,6 +18,7 @@ void ADXL_Init(SPI_HandleTypeDef* hspi)
   // Activer la mesure en écrivant la valeur 0x08 dans le registre POWER_CTL
   tx_buffer[0] = 0x2D;
   tx_buffer[1] = 0x08;
+  // créer une fonction qui remplace les trois prochaine lignes. la fonction doit étre "static"
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);   // Activer le CS
   HAL_SPI_Transmit(hspi, tx_buffer, 2, 100);               // Envoyer la trame
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);     // Désactiver le CS
