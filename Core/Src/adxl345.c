@@ -41,7 +41,8 @@ void ADXL_ReadAccel(SPI_HandleTypeDef* hspi, int16_t* accel_data)
   HAL_SPI_TransmitReceive(hspi, tx_buffer, rx_buffer, 7, 100); // Envoyer et recevoir la trame
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);     // Désactiver le CS
   // Les données des axes X, Y et Z sont stockées dans les octets 1 à 6 de la trame reçue
-  // Les octets sont stockés en little-endian, donc il faut inverser l'ordre des octets pour obtenir la valeur correcte
+  // Les octets sont stockés en little-endian, donc il faut inverser l'ordre des octets pour obtenir la valeur correcte 
+  // faire une fonction qui permet d'inverser l'ordre des octets
   accel_data[0] = (rx_buffer[1] << 8) | rx_buffer[0];
   accel_data[1] = (rx_buffer[3] << 8) | rx_buffer[2];
   accel_data[2] = (rx_buffer[5] << 8) | rx_buffer[4];
